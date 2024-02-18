@@ -2,6 +2,10 @@
 
 This repository contains a Python script for detecting basketball dribbles in a video. The script uses OpenCV for video processing and ball detection, and SciPy for peak detection in the y-coordinates of the ball.
 
+## How it Works
+
+The script first downloads a video from a given URL using the `gdown` library. It then processes each frame of the video to detect the ball and its y-coordinates. The y-coordinate data is smoothed using the Savitzky-Golay filter from the `scipy.signal` library. Peaks in the smoothed y-coordinate list are found using the `find_peaks` function from the `scipy.signal` library. These peaks represent the dribbles. The total dribble count, average height of the dribbles, and average time between dribbles are then calculated and printed.
+
 ## Requirements
 
 - Python 3.6 or later
@@ -29,9 +33,11 @@ The script will download a video from Google Drive, process the video to detect 
 
 ## Customization
 
-The script is currently set up to detect a yellow ball against a white background. The HSV color space boundaries for the ball can be adjusted in the `detect_dribbles` function.
+The script is currently set up to detect a yellow ball. The HSV color space boundaries for the ball can be adjusted in the `detect_dribbles` function to accommodate for different colors or lighting conditions.
 
-The `size` parameter in the `uniform_filter1d` function and the `distance` parameter in the `find_peaks` function can be adjusted to fine-tune the dribble detection.
+The `window size` and `polynomial order` parameters in the `savgol_filter` function can be adjusted to change the aggressiveness of the smoothing applied to the y-coordinate data. A larger window size and polynomial order will result in more aggressive smoothing.
+
+The `distance` parameter in the `find_peaks` function can be adjusted to change the minimum distance between detected peaks. A smaller distance will allow for closer peaks to be detected, potentially increasing the dribble count.
 
 ## License
 
